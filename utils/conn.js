@@ -3,7 +3,7 @@ async function connect(){
       return global.connection
 
   const mysql = require("mysql2/promise")
-  const connection = await mysql.createConnection("mysql://customer_185084_cookie:-L0GtuMNR~u4f8I$2f@S@na01-sql.pebblehost.com:3306/customer_185084_cookie")
+  const connection = await mysql.createConnection(process.env.SQL)
   global.connection = connection
   return connection
 }
