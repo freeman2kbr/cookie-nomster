@@ -6,13 +6,13 @@ module.exports = (client, message) => {
 
   if (content === '!ping'){
     message.reply('Pong!')
-  } else if (content === '!score' || content === '?cooldr'){
+  } else if (content === '!score'){
     cookies.leaderboard(message)
-  } else if (content === '!cookie' || content === '?dailycookies' || content === '!c' || content === '!cookies'){
+  } else if (content === '!cookie' || content === '!c' || content === '!cookies'){
     cookies.dailyCookies(message)
-  } else if (content.startsWith('!givecookies') || content.startsWith('?givecookies')){
+  } else if (content.startsWith('!givecookies')){
     cookies.giveCookies(message)
-  } else if (content.startsWith('!stealcookies') || content.startsWith('?stealcookies')){
+  } else if (content.startsWith('!stealcookies')){
     cookies.stealCookies(message)
   } else if (content === '!resetleaderboard' || content === '!resetscore'){
     cookies.resetLeaderboard(message)
