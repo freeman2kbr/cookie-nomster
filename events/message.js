@@ -27,7 +27,7 @@ module.exports = (client, message) => {
   } else if (content === '!resetsanta'){
     santa.reset(message, client)
   } else if (content === '!mogstationgift'){
-    message.reply(`Here Othelia, this code is valid for one use only, don't share with multiple people.\n\n <http://tinyurl.com/mogstation-code>`)
+    message.reply(`here Othelia, this code is valid for one use only, don't share with multiple people.\n\n <http://tinyurl.com/mogstation-code>`)
   } else if (content === '!help'){
     help = `Welcome to CASTL private bot - Cookie Nomster!\n\n`
     help += `Right now I accept a few commands only:\n\n`
