@@ -21,7 +21,7 @@ const failurePhrases = [
 
 function dailyCookies(message){
   let userId = message.author.id
-  let userName = message.member.displayName  
+  let userName = message.member.displayName
   let currentTotal = conn.selectTotalCookies(userId)
 
   currentTotal.then(function(rows){
