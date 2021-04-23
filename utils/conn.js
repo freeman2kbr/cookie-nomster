@@ -3,7 +3,7 @@ async function connect(){
       return global.connection
 
   const mysql = require("mysql2/promise")
-  const connection = await mysql.createConnection(process.env.SQL)
+  const connection = await mysql.createPool(process.env.SQL)
   global.connection = connection
   return connection
 }
