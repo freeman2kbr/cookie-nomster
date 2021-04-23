@@ -47,13 +47,14 @@ module.exports = (client, message) => {
 
       message.channel.send(help, { code: true })
     } else if (content === '!credits'){
-      credits = `This bot was developed by Trianna Sunstriker but was only made possible with the help of several FC members:\n\n`
+      credits = `This bot was developed by Trianna Sunstriker but was only made possible with the help of several FC members and friends:\n\n`
       credits += ` Othelia Emeraldsong - lots of testing, notifications and pings\n`
       credits += ` Vissik Taranogas - server where this bot is hosted, testing and steal phrases\n`
       credits += ` Calista Crystallis - cookie steal suggestion and cookie steal phrases\n`
       credits += ` Meline Sureli - lots of cookie steal phrases\n`
       credits += ` Kaysera Emeraldsong - cookie steal phrases\n`
       credits += ` Raphtalia Solari - testing\n`
+      credits += ` Cecilia Valeroyant - typo checking\n`
 
       message.channel.send(credits, { code: true })
     }

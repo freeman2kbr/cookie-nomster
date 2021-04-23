@@ -5,7 +5,7 @@ const failurePhrases = [
   `nice try, but Othelia caught you sneaking around the pantry.`,
   `you try, but you get scared when someone yells behind you: _...the AUDACITY!_`,
   `you move stealthily as a cat, carefully not to make any sound, only to slip in a banana peel and hit the cabinet full of pans. You end up waking up the entire FC house.`,
-  `you reach out for the cookie jar only to find a note: "Sorry, the cookie jar is on another FC house".`,
+  `you reach out for the cookie jar only to find a note: "Sorry, the cookie jar is in another FC house."`,
   `you tried to steal some cookies but you're acting sus and someone saw you vent.`,
   `you've been caught trying to steal cookies. Go directly to FC dungeon, do not pass by your retainers and do not collect 200 gil.`, // Cali
   `it's dark and you can't see right, instead of stealing cookies, you hand was caught in the grip of a lobster's pincers. You tried stealing cookies from the aquarium.`, // Mel and Tria
