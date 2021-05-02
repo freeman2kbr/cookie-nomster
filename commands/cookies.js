@@ -120,14 +120,14 @@ function giveCookies(message){
 
       cookiesToGive = getRandom(16, 26);
       updatedTotal = availableCookies - cookiesToGive
-      conn.updateCookies(userId, userName, updatedTotal)
+      conn.updateCookiesQuantityOnly(userId, userName, updatedTotal)
 
       giftedUserCurrentTotal.then(function(giftRows){
         if (giftRows[0]){
           cookiesToGive += giftRows[0]['total']
         }
       
-        conn.updateCookies(giftedUserId, giftedUserName, cookiesToGive)
+        conn.updateCookiesQuantityOnly(giftedUserId, giftedUserName, cookiesToGive)
       })
     } else {
       message.reply(`you don't have enough cookies in your jar to give away.`)
@@ -199,15 +199,15 @@ function stealCookies(message){
         if (hitOrMiss < 0.9){
           cookiesToLose = getRandom(5, 13);
           userTotal -= cookiesToLose
-          conn.updateCookies(userId, userName, userTotal)
+          conn.updateCookiesQuantityOnly(userId, userName, userTotal)
 
           message.reply(`you did your best but while trying to steal, some of your own cookies fell from your pocket. You lost ${ cookiesToLose } cookies.`)
           return
         } else {
           victimTotal = availableCookies - cookiesToSteal
-          conn.updateCookies(victimUserId, victimUserName, victimTotal)
+          conn.updateCookiesQuantityOnly(victimUserId, victimUserName, victimTotal)
           userTotal += cookiesToSteal
-          conn.updateCookies(userId, userName, userTotal)
+          conn.updateCookiesQuantityOnly(userId, userName, userTotal)
 
           message.reply(`you outdid yourself and like the mastermind criminal you are, you stole ${ cookiesToSteal } cookies. What kind of person would do something so terrible?`)
           return

@@ -24,6 +24,10 @@ async function updateCookies(userId, userName, quantity){
   await execute('INSERT INTO cookie_score (user_id, username, total) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE total = ?, username = ?, updated_at = NOW()', [userId, userName, quantity, quantity, userName])
 }
 
+async function updateCookiesQuantityOnly(userId, userName, quantity){
+  await execute('INSERT INTO cookie_score (user_id, username, total) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE total = ?, username = ?', [userId, userName, quantity, quantity, userName])
+}
+
 async function resetCookies(){
   await execute('DELETE FROM cookie_score')
 }
@@ -65,6 +69,7 @@ module.exports = {
   selectTop15,
   selectTotalCookies,
   updateCookies,
+  updateCookiesQuantityOnly,
   resetCookies,
   existsSanta,
   insertSanta,
