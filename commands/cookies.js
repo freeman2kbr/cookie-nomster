@@ -43,7 +43,7 @@ function dailyCookies(message){
       minutes = Math.floor((timeDifference / (1000 * 60 * 60) - hours) * 60);
       seconds = Math.floor((((timeDifference / (1000 * 60 * 60)  - hours) * 60) - minutes) * 60);
 
-      message.reply(`it's too soon to get more cookies. You need to wait **${ zeroPad(hours, 2) }h${ zeroPad(minutes, 2) }** for another set straight from oven.`)
+      message.reply(`it's too soon to get more cookies. You need to wait **${ zeroPad(hours, 2) }h${ zeroPad(minutes, 2) }** for another set straight from the oven.`)
         .then(msg => {
           msg.delete({ timeout: 10000 })
           message.delete({ timeout: 10000 })
