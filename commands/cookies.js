@@ -23,22 +23,29 @@ function dailyCookies(message){
   let userId = message.author.id
   let userName = message.member.displayName
   let currentTotal = conn.selectTotalCookies(userId)
+  let refreshAt = new Date();
+
+  refreshAt.setHours(4);
+  refreshAt.setMinutes(0);
 
   currentTotal.then(function(rows){
     newCookies = getRandom(16, 26);
     updatedTotal = newCookies
-    cookieAvailable = true
     
     if (rows[0]){
       updatedTotal += rows[0]['total']
       lastCookieAt = new Date(rows[0]['updated_at'])
-      cookieRefreshAt = new Date(lastCookieAt.getTime() +  24 * 1000 * 60 * 60);
     } else {
-      cookieRefreshAt = new Date()
+      lastCookieAt = new Date()
     }
+    
+    if (lastCookieAt > refreshAt){
+      nextRefreshAt = new Date();
+      nextRefreshAt.setHours(4);
+      nextRefreshAt.setMinutes(0);
+      nextRefreshAt.setDate(nextRefreshAt.getDate() + 1);
 
-    if (cookieRefreshAt > new Date()){
-      timeDifference = Math.abs(cookieRefreshAt.getTime() - new Date().getTime());
+      timeDifference = Math.abs(nextRefreshAt.getTime() - new Date().getTime())
       hours = Math.floor(timeDifference / (1000 * 60 * 60));
       minutes = Math.floor((timeDifference / (1000 * 60 * 60) - hours) * 60);
       seconds = Math.floor((((timeDifference / (1000 * 60 * 60)  - hours) * 60) - minutes) * 60);
