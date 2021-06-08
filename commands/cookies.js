@@ -23,34 +23,19 @@ function dailyCookies(message){
   let userId = message.author.id
   let userName = message.member.displayName
   let currentTotal = conn.selectTotalCookies(userId)
-  let refreshAt = new Date();
-
-  refreshAt.setHours(4);
-  refreshAt.setMinutes(0);
 
   currentTotal.then(function(rows){
-    newCookies = getRandom(16, 26);
+    newCookies = getRandom(16, 26)
     updatedTotal = newCookies
+    lastCookieAt = null
     
     if (rows[0]){
       updatedTotal += rows[0]['total']
-      lastCookieAt = new Date(rows[0]['updated_at'])
-    } else {
-      lastCookieAt = new Date()
+      lastCookieAt = rows[0]['updated_at']
     }
     
-    if (lastCookieAt > refreshAt){
-      nextRefreshAt = new Date();
-      nextRefreshAt.setHours(4);
-      nextRefreshAt.setMinutes(0);
-      nextRefreshAt.setDate(nextRefreshAt.getDate() + 1);
-
-      timeDifference = Math.abs(nextRefreshAt.getTime() - new Date().getTime())
-      hours = Math.floor(timeDifference / (1000 * 60 * 60));
-      minutes = Math.floor((timeDifference / (1000 * 60 * 60) - hours) * 60);
-      seconds = Math.floor((((timeDifference / (1000 * 60 * 60)  - hours) * 60) - minutes) * 60);
-
-      message.reply(`it's too soon to get more cookies. You need to wait **${ zeroPad(hours, 2) }h${ zeroPad(minutes, 2) }** for another set straight from the oven.`)
+    if (lastCookieAt !== null){
+      message.reply(`it's too soon to get more cookies. You need to wait until **midnight EDT/EST** for another set straight from the oven.`)
         .then(msg => {
           msg.delete({ timeout: 10000 })
           message.delete({ timeout: 10000 })

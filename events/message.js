@@ -55,9 +55,11 @@ module.exports = (client, message) => {
       credits += ` Kaysera Emeraldsong - cookie steal phrases\n`
       credits += ` Raphtalia Solari - testing\n`
       credits += ` Cecilia Valeroyant - typo checking\n`
-      credits += ` Ilyana Sunstriker - typo checking\n`
+      credits += ` Ilyana Nightelm - typo checking\n`
 
       message.channel.send(credits, { code: true })
+    } else if (content === '!servertime'){
+      message.channel.send(`Current time on server: ${ new Date().toLocaleString() }`)
     }
   } catch (e) {
     console.log(e)
