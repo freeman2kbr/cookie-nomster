@@ -16,7 +16,8 @@ client.login(process.env.BOT_TOKEN)
 
 console.log(`Logged in!`)
 
-schedule.scheduleJob('0 5 * * *', function(){
+schedule.scheduleJob('* 4 * * *', function(){
   const conn = require('./utils/conn')
   conn.freshCookies()
+  console.log(`Cookies refreshed. ${ new Date().toLocaleString() }`)
 })
