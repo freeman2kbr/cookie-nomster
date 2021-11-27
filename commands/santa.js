@@ -140,34 +140,40 @@ function draw(message, client){
   
     for (let i = 0; i < totalParticipants; i++) {
       chooser = participantNames[i]
-      summary += `${ chooser } - ${ pairs[chooser] }\n`
-  
+      pair = pairs[chooser][0]
       chooserDetails = participants[chooser]
-      pairDetails = participants[pairs[chooser]]
-  
+
+      summary += `${ chooser } - ${ pair }\n`
+      
       naughtyList += `${ chooser }\n`
       naughtyList += `Wants: ${ chooserDetails['wants'] ? chooserDetails['wants'] : '' }\n`
       naughtyList += `Don't wants: ${ chooserDetails['dont_wants'] ? chooserDetails['dont_wants'] : '' }\n\n`
-  
-      dmContentA = `Hello! It's your friend Cookie Nomster with your secret santa \\o/`
-      dmContentA += `\n\nYour secret santa is: ${ pairs[chooser] }`
-      dmContentA += `\nHe would like to receive: ${ pairDetails['wants'] ? pairDetails['wants'] : '' }`
-      dmContentA += `\nHe would NOT like to receive: ${ pairDetails['dont_wants'] ? pairDetails['dont_wants'] : '' }`
-      dmContentA += `\n\nIf you have any question, poke Othelia!`
-  
-      console.log(chooserDetails['id'])
-      console.log(dmContentA)
-      client.users.fetch(chooserDetails['id'], false).then((user) => { user.send(dmContentA) })
+
+      sendDetailsToDM(client, participants, chooser, pair)
     }
   
     summary += naughtyList
 
     webhookClient = new Discord.WebhookClient('833441875461275658', 'rxTBKAiJMszEcRZNw4-HzpifRG2as5Fw5Gpb4o8QFiVPdu9FwXUm7G8OZKaKiD0Cvv8q')
     webhookClient.send(summary)
-  console.log(summary)
+    console.log(summary)
+    
     message.reply('santa draw completed. Please check your private discord for the summary.')
-  })
-  
+  }) 
+}
+
+function sendDetailsToDM(client, participants, chooser, pair){
+  new Promise(() => {
+    let chooserDetails = participants[chooser]
+    let pairDetails = participants[pair]
+    let dmContent = `Hello! It's your friend Cookie Nomster with your secret santa \\o/`
+    dmContent += `\n\nYour secret santa is: ${ pair }`
+    dmContent += `\nHe would like to receive: ${ pairDetails['wants'] ? pairDetails['wants'] : '' }`
+    dmContent += `\nHe would NOT like to receive: ${ pairDetails['dont_wants'] ? pairDetails['dont_wants'] : '' }`
+    dmContent += `\n\nIf you have any question, poke Othelia!`
+
+    client.users.fetch(chooserDetails['id'], false).then((user) => { user.send(dmContent) })
+  }).catch(error => { console.log(error) })
 }
 
 function reset(message){
