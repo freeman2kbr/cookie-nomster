@@ -136,7 +136,7 @@ function draw(message, client){
   
     summary = `**Secret Santa Draw - ${ dateFormat(new Date(), 'mmmm, d - yyyy') }**\n\n`
     summary += `Pairs: \n`
-    naughtyList = `\n\n** Wants / Don't Wants:\n\n`
+    webhookNotifications = []
   
     for (let i = 0; i < totalParticipants; i++) {
       chooser = participantNames[i]
@@ -145,21 +145,40 @@ function draw(message, client){
 
       summary += `${ chooser } - ${ pair }\n`
       
-      naughtyList += `${ chooser }\n`
+      naughtyList = `${ chooser }\n`
       naughtyList += `Wants: ${ chooserDetails['wants'] ? chooserDetails['wants'] : '' }\n`
       naughtyList += `Don't wants: ${ chooserDetails['dont_wants'] ? chooserDetails['dont_wants'] : '' }\n\n`
 
+      webhookNotifications.push(naughtyList)
+
       sendDetailsToDM(client, participants, chooser, pair)
     }
-  
-    summary += naughtyList
 
-    webhookClient = new Discord.WebhookClient('833441875461275658', 'rxTBKAiJMszEcRZNw4-HzpifRG2as5Fw5Gpb4o8QFiVPdu9FwXUm7G8OZKaKiD0Cvv8q')
-    webhookClient.send(summary)
-    console.log(summary)
-    
+    summary += `\n\n** Wants / Don't Wants:\n\n`
+    webhookNotifications.unshift(summary)
+
+    webhookMessage = ''
+    for (let i = 0; i < webhookNotifications.length; i++){
+      if ((webhookMessage.length + webhookNotifications[i].length) > 2000) {
+        sendWebhook(webhookMessage)
+        webhookMessage = `**Part 2:**\n\n`
+      }
+      
+      webhookMessage += webhookNotifications[i]
+    }
+
+    sendWebhook(webhookMessage)
+
     message.reply('santa draw completed. Please check your private discord for the summary.')
   }) 
+}
+
+function sendWebhook(notification){
+  new Promise(() => {
+    //webhookClient = new Discord.WebhookClient('833439416247779338', 'kEyk46HGYlnEsAxlx0AjB_oL5f-lEE9BHb_EGK3_AQKnkZ6DMTfTCP9FckcH7kpXxCsC') --- Testing Webhook
+    webhookClient = new Discord.WebhookClient('833441875461275658', 'rxTBKAiJMszEcRZNw4-HzpifRG2as5Fw5Gpb4o8QFiVPdu9FwXUm7G8OZKaKiD0Cvv8q')
+    webhookClient.send(notification)
+  })
 }
 
 function sendDetailsToDM(client, participants, chooser, pair){
@@ -168,8 +187,8 @@ function sendDetailsToDM(client, participants, chooser, pair){
     let pairDetails = participants[pair]
     let dmContent = `Hello! It's your friend Cookie Nomster with your secret santa \\o/`
     dmContent += `\n\nYour secret santa is: ${ pair }`
-    dmContent += `\nHe would like to receive: ${ pairDetails['wants'] ? pairDetails['wants'] : '' }`
-    dmContent += `\nHe would NOT like to receive: ${ pairDetails['dont_wants'] ? pairDetails['dont_wants'] : '' }`
+    dmContent += `\nThey would like to receive: ${ pairDetails['wants'] ? pairDetails['wants'] : '' }`
+    dmContent += `\nThey would NOT like to receive: ${ pairDetails['dont_wants'] ? pairDetails['dont_wants'] : '' }`
     dmContent += `\n\nIf you have any question, poke Othelia!`
 
     client.users.fetch(chooserDetails['id'], false).then((user) => { user.send(dmContent) })
